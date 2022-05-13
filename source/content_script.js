@@ -2,17 +2,158 @@
  * @author Wei756 <wei756fg@gmail.com> 
  * @license MIT
  */
-
+ 
 jQuery(function($){
-    $(document).ready(() => {
+    console.log("hello");
+    $(window.setTopInIframe).ready(() => {
+        console.log(window.setTopInIframe);
+    });
+    $(document).last().ready(() => {
+        setEvery();
         injectLikeItUI();
         injectBestArticleUI();
         injectDarkmodeUI();
         checkActivityStop();
+        newUI();
     });
+
+    function setEvery(){
+        $('.link_naver').attr("href", "https://cafe.naver.com/steamindiegame.cafe");
+    }
+
+    function newUI(){
+        console.log(!$('#twitchembed').length);
+        if(!$('#twitchembed').length){
+            const twitchPickerHtml = `
+            <li id="woowakgood" class="twitch-picker">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/ebc60c08-721b-4572-8f51-8be7136a0c96-profile_image-70x70.png">
+            </li>
+            <li id="vo_ine" class="twitch-picker">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/ecd6ee59-9f18-4eec-b8f3-63cd2a9127a5-profile_image-70x70.png">
+            </li>
+            <li id="jingburger" class="twitch-picker">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/330b695d-63ec-41cb-baca-a191a7bbc441-profile_image-70x70.png">
+            </li>
+            <li id="lilpaaaaaa" class="twitch-picker">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/3b5e6d73-8935-449f-902b-1b94a386e137-profile_image-70x70.png">
+            </li>
+            <li id="cotton__123" class="twitch-picker">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/789fa11b-d136-4c85-ae68-abb8e582e21c-profile_image-70x70.png">
+            </li>
+            <li id="gosegugosegu" class="twitch-picker">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/1e4cac72-a1cd-4f72-8ada-b2d10ac990d7-profile_image-70x70.png">
+            </li>
+            <li id="viichan6" class="twitch-picker">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/700b60f8-4bbf-4567-918f-e72a4638d838-profile_image-70x70.png">
+            </li>
+            `;
+
+            const testHtml = `
+            <div id="twitch-area">
+                
+                <div id="twitchembed">
+                    <iframe
+                        id="twitchVideo"
+                        src=""
+                        height="720"
+                        width="1280"
+                        allowfullscreen="true"
+                        frameBorder=0>
+                    </iframe>
+                    <div id="twitchSub">
+                        <div id="twitchSub-warp">
+                            <div id="twitch-picker">
+                                <ul id="twitch-picker-list">
+                                    ${twitchPickerHtml}
+                                </ul>
+                            </div>
+                            <div id="wakzooExtension">
+                                <div id="wakzooSetting">
+                                    <div class="wakzoo-slider">
+                                        <div id="twitchImg">
+                                            <img src="https://blog.kakaocdn.net/dn/bcnQxm/btqxxcBMWAP/kaLL026jtnwid4IbuXkQoK/img.png"/>
+                                        </div>
+                                        <label class="switch-button"> 
+                                            <input id="twitchToggle" type="checkbox" checked/> 
+                                            <span class="onoff-switch"></span> 
+                                        </label>
+                                    </div>
+                                    <div class="soon">
+                                        추가해나갈 예정
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <iframe 
+                            id="twitchChat"
+                            src=""
+                            height="495"
+                            width="440"
+                            frameBorder=0>
+                        </iframe>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            `;
+
+            
+
+            const twitchInject = $(testHtml);
+            $('#cafe-body>#content-area>#main-area').has('iframe').append(twitchInject);
+            $('.twitch-picker').click(function(){
+                console.log("click");
+                const streamerName = $(this).attr("id");
+                $('#twitchVideo').attr("src", `https://player.twitch.tv/?channel=${streamerName}&parent=cafe.naver.com${document.documentElement.getAttribute("data-dark") ? '&darkpopout' : ''}`);
+                $('#twitchChat').attr("src", `https://www.twitch.tv/embed/${streamerName}/chat?parent=cafe.naver.com${document.documentElement.getAttribute("data-dark") ? '&darkpopout' : ''}`);
+            });
+
+            function twitchReset(checked){
+                if(checked){
+                    console.log('twitch on');
+                    $('#twitch-picker-list').show();
+                    $('#twitchVideo').attr("src", `https://player.twitch.tv/?channel=woowakgood&parent=cafe.naver.com${document.documentElement.getAttribute("data-dark") ? '&darkpopout' : ''}`);
+                    $('#twitchChat').attr("src", `https://www.twitch.tv/embed/woowakgood/chat?parent=cafe.naver.com${document.documentElement.getAttribute("data-dark") ? '&darkpopout' : ''}`);
+                }else{
+                    console.log('twitch off');
+                    $('#twitch-picker-list').hide();
+                    $('#twitchVideo').attr("src", "");
+                    $('#twitchChat').attr("src", "");
+                }
+            }
+            $('#twitchToggle').change(function(){
+                const onoff = $(this).is(':checked');
+                twitchReset(onoff);
+                chrome.storage.sync.set({'twitchToggle': onoff}, function() {
+                    console.log('twitchToggle is set to ' + onoff);
+                });
+            });
+
+            chrome.storage.sync.get(['twitchToggle'], function(result) {
+                console.log('twitchToggle get is ' + result['twitchToggle']);
+                $('#twitchToggle').prop("checked", result['twitchToggle']);
+                twitchReset(result['twitchToggle']);
+            });
+
+            resized();
+            
+            $(window).resize(resized);
+        }
+        
+    }
+
+    function resized(){
+        const width = $('#main-area').width() - 860 - 32;
+        $('#twitchVideo').width(width); 
+        $('#twitchVideo').height(width * 9/16); 
+    }
+    
 
     function injectDarkmodeUI() {
         if ($('#front-img').length == 1) {
+            $('#front-img').remove();
             const btnDarkmodeHtml = '<button id="NM_darkmode_btn" type="button" role="button" class="btn_theme" aria-pressed="false"> <span class="blind">라이트 모드로 보기</span></button>';
             const btnContentTopHtml = '<a id="NM_scroll_top_btn" href="" class="content_top"><span class="blind">TOP</span></a>';
             const btnDarkmode = $(btnDarkmodeHtml);
@@ -71,12 +212,14 @@ jQuery(function($){
      */
     function injectBestArticleUI() {
         const link_best = '<li class="best" aria-selected="false"><a href="#" class="link">인기글</a></li>';
-    
+        $('a#menuLink-1').ready(() => {
+            $('a#menuLink-1').prop('href', "/BestArticleList.nhn?clubid=27842958&period=week&listtype=commentcount&best=true");
+        });
         $('ul.list_sub_tab').ready(() => {
             // 인기글 링크
             if (location.href.indexOf('BestArticleList.nhn') != -1) {
                 var page = $(link_best);
-                $('ul.list_sub_tab').append(page);
+                $('ul.list_sub_tab').prepend(page);
                 page.on('click', () => {
                     location.href = location.href.replace('&best=true', '')
                                                 .replace('#', '') + '&best=true';
@@ -305,7 +448,7 @@ jQuery(function($){
      * @param {JSON} data 인기글 JSON
      */
     function dispBestArticles(data) {
-        const table = document.querySelector('#main-area .article-board');
+        const table = document.querySelector('#main-area .article-board table');
 
         const list = data['message']['result']['popularArticleList'];
 
@@ -313,20 +456,21 @@ jQuery(function($){
         parent.document.getElementById('cafe_main').style.height = (list.length * 37 + 250) + 'px';
 
         // 인기글 목록 삽입
-        table.innerHTML += `<ul id="bestArticleList">${geneBestArticles(list)}</ul>`;
+        table.innerHTML += `<tbody id="bestArticleList" class="showThumb">${geneBestArticles(list)}</tbody>`;
     }
 
     /** 
      * @description 인기글 목록 HTML을 생성합니다.
      * @param {Array} list 인기글 array (message->result->popularArticleList)
      */
+    
     function geneBestArticles(list) {
         var innerHtml = '';
         list.map((itemData, i, arr) => {
             const { 
-                cafeId, articleId, subject, representImage, representImageType, commentCount, formattedCommentCount, newArticle, nickname, writerId, aheadOfWriteDate, formattedReadCount, upCount
+                cafeId, articleId, subject, representImage, representImageType, commentCount, formattedCommentCount, newArticle, nickname, writerId, aheadOfWriteDate, formattedReadCount, upCount, memberLevel
             } = itemData;
-
+            console.log(itemData, arr, representImage);
             // 인기글 URL
             const articleUrl = `https://cafe.naver.com/ArticleRead.nhn?clubid=${cafeId}&articleid=${articleId}`;
 
@@ -348,12 +492,13 @@ jQuery(function($){
 
             // 썸네일 오버레이
             const thumbnail = representImage ? `
-            <div class="best_thumb_area">
+            <td class="best_thumb_area">
                 <div class="thumb">
                     <img src="${representImage}" width="100px" height="100px" alt="본문이미지" onerror="this.style.display='none';" class="image_thumb">
                 </div>
-            </div>` : '';
+            </td>` : '';
 
+            /*
             innerHtml += `
             <li class="bestArticleItem" align="center">
                 <div class="b_index">${i + 1}</div>
@@ -364,9 +509,50 @@ jQuery(function($){
                 <div class="b_likeit">${upCount}</div>
                 ${thumbnail}
             </li>`;
+            */
+
+            innerHtml += `
+            <tr class="bestArticleItem" align="center">
+                <td colspan="2">
+                    <span class="m-tcol-c list-count">
+                        ${i + 1}
+                    </span>
+                </td>
+                <td align="left" class="board-list">
+                    <a class="article" href="${articleUrl}" onclick="clickcr(this, 'gnr.title','','',event);">
+                        <span class="head"></span>
+                        ${subject}
+                    </a>
+                        ${mediaIcon}
+                        ${comment}
+                        ${newIcon}
+                    </div>
+                </td>
+                <td class="p-nick">
+                    <div class="pers_nick_area">
+                        <table role="presentation" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td class="p-nick">
+                                        <a href="#" class="m-tcol-c" onclick="${nickOnClick}" style="word">${nickname}</a><!--
+                                        --><span class="mem-level">
+                                            <img src="https://cafe.pstatic.net/levelicon/1/1_${memberLevel}.gif" width="11" height="11">
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+                <td class="td_date">${aheadOfWriteDate}</td>
+                <td class="td_view">${formattedReadCount}</td>
+                <td class="td_likes">${upCount}</td>
+                ${thumbnail}
+            </tr>
+            `;
         });
         return innerHtml;
-     }
+    }
 
     isDarkmode(darkmode => {
         if (darkmode) {

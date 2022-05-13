@@ -1,10 +1,12 @@
 {
-  "name": "네이버 카페 애드온",
-  "version": "1.2.1",
-  "description": "네이버 카페 차단, 인기글 목록, 좋아요한 글 등 각종 편의기능 제공",
+  "name": "왁쥬",
+  "version": "1.1.0",
+  "description": "네이버 카페 애드온의 왁물원 확장팩",
   "permissions": [
     "storage", 
-    "contextMenus", 
+    "contextMenus"
+  ],
+  "host_permissions": [
     "https://cafe.naver.com/*", 
     "http://cafe.naver.com/*",
     "https://m.cafe.naver.com/*"
@@ -13,8 +15,8 @@
     {
       "matches": ["https://cafe.naver.com/*"], 
       "run_at": "document_idle",
-      "js": ["jquery3.3.1.min.js", "common.js", "blocking_script.js", "content_script.js"],
-      "css": ["bestArticle.css", "deepdarknaver.css", "deepdark1080_cafe-1593151221000-219709.css"],
+      "js": ["jquery3.3.1.min.js", "embed.js", "common.js", "blocking_script.js", "content_script.js"],
+      "css": ["fantastic.css", "bestArticle.css", "deepdarknaver.css", "deepdark1080_cafe-1593151221000-219709.css"],
       "all_frames": true
     },
     {
@@ -26,15 +28,16 @@
     }
   ],
   "background": {
-    "scripts": ["blocking_context_menu.js"]
+    "service_worker": "blocking_context_menu.js"
   },
-  "page_action": {
-    "default_icon": {
-      "16": "images/icon16.png",
-      "32": "images/icon32.png",
-      "48": "images/icon48.png",
-      "128": "images/icon128.png"
-    }
+  "action": {
+    
   },
-  "manifest_version": 2
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "manifest_version": 3
 }

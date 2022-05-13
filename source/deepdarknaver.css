@@ -48,11 +48,11 @@ html[data-dark=true] #front-img .cafe_url {
 
 /* 검색 */
 html[data-dark=true] .cafe-search {
-    background-color: #1e1f21;
+    background-color: transparent;
 }
 
 html[data-dark=true] .cafe-search .inp {
-	border-color: #19ce60;
+	border-color: #7e7e7e;
     background-color: #1e1f21;
     color: #d9d9d9;
 }
@@ -140,7 +140,7 @@ html[data-dark=true] .skin-1080 .board-notice.type_main .cmt {
 html[data-dark=true] .skin-1080 .board-notice.type_required .board-tag-txt,
 html[data-dark=true] .skin-1080 .board-notice.type_main .board-tag-txt {
 	border: 1px solid #463737;
-	background-color: #837576;
+	background-color: #000000;
 	color: #ff4e59;
 }
 
@@ -219,8 +219,7 @@ html[data-dark=true] .skin-1080 #cafe-menu {
 
 html[data-dark=true] .skin-1080 .info-action-tab {
     background-color: #333438;
-	border-top-color: #333438;
-	border-bottom-color: #555;
+	border: 0;
 }
 
 html[data-dark=true] .skin-1080 .info-action-tab li {
@@ -367,7 +366,7 @@ html[data-dark=true] .skin-1080 #cafe-menu .cafe-menu-list .ico-indent {
 }
 
 html[data-dark=true] .skin-1080 #cafe-menu .cafe-menu-space {
-	border-top: 1px solid #777;
+	border-top: transparent;
 }
 
 html[data-dark=true] .skin-1080 .com .box-w {
@@ -1032,7 +1031,7 @@ html[data-dark=true] #editer_border .subject #infoDB a {
 .btn_theme {
     position: fixed;
     z-index: 100;
-    right: 78px;
+    left: 1150px;
     bottom: 19px;
     display: inline-block;
     width: 136px;
@@ -1094,7 +1093,7 @@ html[data-dark=true] #editer_border .subject #infoDB a {
 .content_top {
     position: fixed;
     z-index: 100;
-    right: 24px;
+    left: 1290px;
     bottom: 20px;
     text-decoration: none;
     color: inherit;
