@@ -38,13 +38,13 @@ jQuery(function($){
                 <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/3b5e6d73-8935-449f-902b-1b94a386e137-profile_image-70x70.png">
             </li>
             <li id="cotton__123" class="twitch-picker">
-                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/789fa11b-d136-4c85-ae68-abb8e582e21c-profile_image-70x70.png">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/c90c5d02-5a9f-4906-a745-08ee8bf8ea18-profile_image-70x70.png">
             </li>
             <li id="gosegugosegu" class="twitch-picker">
                 <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/1e4cac72-a1cd-4f72-8ada-b2d10ac990d7-profile_image-70x70.png">
             </li>
             <li id="viichan6" class="twitch-picker">
-                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/700b60f8-4bbf-4567-918f-e72a4638d838-profile_image-70x70.png">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/d9db10b1-f7cf-44ce-942e-0ad8f1692813-profile_image-70x70.png">
             </li>
             `;
 

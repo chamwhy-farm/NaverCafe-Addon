@@ -37,6 +37,7 @@
     height: calc(100% - 19.3rem);
     overflow: auto;
     border: 0;
+    max-width: 14rem;
 }
 #cafe-menu > .box-g-m::-webkit-scrollbar{
     width: 0.5rem;
@@ -106,7 +107,7 @@
     }
 }
 
-#upperArticleList tbody tr:nth-child(n+7){
+#upperArticleList>table>tbody>tr:nth-child(n+7)[class~="_noticeArticle"]{
     display: none;
 }
 
@@ -182,6 +183,10 @@ footer{
     height: calc(100% - 4.2rem);
     display: flex;
     flex-direction: column;
+}
+
+@media screen {
+    
 }
 #twitchembed{
     display: flex;
